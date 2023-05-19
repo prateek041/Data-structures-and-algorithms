@@ -1,22 +1,20 @@
 class Solution:
     def maxProfit(self, nums):
-        maxComb = []
-        # Create all possible collections.
-        for i in range(len(nums)):
-            max = 0
-            for j in range(i + 1, len(nums)):
-                if nums[j] - nums[i] > max:
-                    max = nums[j] - nums[i]
-            maxComb.append(max)
+        low = 0
+        high = low + 1
+        maxPrice = 0
+        while high < len(nums):
+            # If profit, then calculate max
+            if nums[low] < nums[high]:
+                price = nums[high] - nums[low]
+                maxPrice = max(maxPrice, price)
 
-        final_max = 0
-        for item in maxComb:
-            if item > final_max:
-                final_max = item
-
-        return final_max
+            else:
+                low = high
+            high += 1
+        return maxPrice
 
 
-nums = [7, 6, 4, 3, 1]
+nums = [7, 1, 5, 3, 6, 4]
 solution = Solution()
 print(solution.maxProfit(nums))
