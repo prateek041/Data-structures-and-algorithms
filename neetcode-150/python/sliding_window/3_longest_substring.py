@@ -1,22 +1,28 @@
 class Solution:
     def lengthOfLongestSubstring(self, s):
-        left = 0
-        right = 0
-        sub = ""
-        maxSub = ""
-        while right < len(s):
-            if s[right] in sub:
-                if len(maxSub) < len(sub):
-                    maxSub = sub
-                left = right
+        if len(s) <= 1:
+            return len(s)
 
-            else:
-                sub += s[right]
+        start = 0
+        max_length = 0
+        matchSet = set()
+        for end in range(len(s)):
+            if s[end] in matchSet:
+                max_length = max(max_length, len(matchSet))
 
-            right += 1
+                # shrink from the left
+                while s[start] != s[end]:
+                    matchSet.remove(s[start])
+                    start += 1
+                # we found the repeated character, so remove it as well.
+                start += 1  # This makes the window unique again.
 
-        return len(maxSub)
+            # if end is not present in set
+            matchSet.update(s[end])
+            end += 1
+
+        return max(max_length, len(matchSet))
 
 
 solution = Solution()
-print(solution.lengthOfLongestSubstring("aab"))
+print(solution.lengthOfLongestSubstring("pwwkew"))
