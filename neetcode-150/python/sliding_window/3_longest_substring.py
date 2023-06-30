@@ -26,3 +26,5 @@ class Solution:
 
 solution = Solution()
 print(solution.lengthOfLongestSubstring("pwwkew"))
+
+## This solution is not fully utilising sliding window as I am more dependent on the matchset instead of the left and right pointers.
